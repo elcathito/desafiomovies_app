@@ -12,4 +12,13 @@ interface MovieService {
         const val MOVIE_ID = 40096
     }
 
+    @GET("movie/$MOVIE_ID")
+    suspend fun getMovie(): Response<MovieResponse>
+
+    @GET("movie/$MOVIE_ID/similar")
+    suspend fun getSimilarMovies(@Query("page") page:Int): Response<ResultMovieSimilarResponse>
+
+    @GET("genre/movie/list")
+    suspend fun getAllGenres(): Response<ResultGenreResponse>
+
 }
