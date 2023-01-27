@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.ifs.desafiomovies.presentation.viewmodels.MainViewModel
 import com.ifs.desafiomovies.R
+import com.ifs.desafiomovies.core.Either
 import com.ifs.desafiomovies.data.exception.ResponseError
 import com.ifs.desafiomovies.databinding.ActivityMainBinding
 import com.ifs.desafiomovies.domain.model.Movie
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         lifecycle(mainViewModel.uiState, ::handleGetMovie)
         observe(mainViewModel.movieData, ::handleMovie)
     }
+
     private fun handleGetMovie(uiState: UiState) {
         when (uiState) {
             is UiState.Loading -> {
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
             is UiState.Failure -> {
                 progressDialog.dismiss()
+                toast("Não foi possível carregar os filmes!")
             }
             is UiState.Success -> {
                 progressDialog.dismiss()
@@ -52,12 +55,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun handleMovie(movieItemUiState: Movie){
         setupMovieDetail(movieItemUiState)
         setupListener()
         handleGetSimilarMovies()
     }
-
 
     private fun setupMovieDetail(movie: Movie){
         voteCount = movie.vote_count

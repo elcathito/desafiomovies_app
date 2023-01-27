@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface MovieService {
     companion object{
-        const val MOVIE_ID = 40096
+        const val MOVIE_ID = 603
     }
 
     @GET("movie/$MOVIE_ID")
@@ -20,5 +20,4 @@ interface MovieService {
 
     @GET("genre/movie/list")
     suspend fun getAllGenres(): Response<ResultGenreResponse>
-
 }
